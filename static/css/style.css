@@ -1,0 +1,43 @@
+body {
+    background: #f8fff7;
+    font-family: Arial, sans-serif;
+}
+
+.role-card {
+    transition: 0.3s ease;
+    border-radius: 12px;
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #e6e6e6;
+}
+
+.role-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.icon-box {
+    font-size: 50px;
+    color: #198754;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.btn-success {
+    border-radius: 8px;
+}
+
+.navbar-brand {
+    font-size: 1.3rem;
+}
+
+input, select {
+    border-radius: 8px !important;
+}
+
+.form-label {
+    font-weight: 600;
+}

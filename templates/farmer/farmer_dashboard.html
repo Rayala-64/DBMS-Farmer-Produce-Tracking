@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Farmer Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Common Styles -->
+    <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
+    <img src="../assets/RVCE.png"
+         alt="College Logo"
+         height="40"
+         class="me-2">
+    Produce Tracking System
+</a>
+
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="text-success mb-4"><i class="bi bi-person-circle"></i> Farmer Dashboard</h2>
+
+        <div class="row g-4">
+            <!-- Add Produce -->
+            <div class="col-md-4">
+                <div class="role-card p-4">
+                    <div class="icon-box"><i class="bi bi-plus-square"></i></div>
+                    <h5 class="mt-3">Add New Produce</h5>
+                    <p class="text-muted small">Enter crop details, quantity, quality, and harvest date.</p>
+                    <a href="#" class="btn btn-success w-100">Add Produce</a>
+                </div>
+            </div>
+
+            <!-- View Produce List -->
+            <div class="col-md-4">
+                <div class="role-card p-4">
+                    <div class="icon-box"><i class="bi bi-list-ul"></i></div>
+                    <h5 class="mt-3">View My Produce</h5>
+                    <p class="text-muted small">Track all produce submitted to the warehouse.</p>
+                    <a href="#" class="btn btn-success w-100">View Produce</a>
+                </div>
+            </div>
+
+            <!-- Shipment Tracking -->
+            <div class="col-md-4">
+                <div class="role-card p-4">
+                    <div class="icon-box"><i class="bi bi-truck"></i></div>
+                    <h5 class="mt-3">Track Shipments</h5>
+                    <p class="text-muted small">Check where your produce is in the supply chain.</p>
+                    <a href="#" class="btn btn-success w-100">Track Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+            <!-- Market Insights -->
+            <div class="col-md-4">
+                <div class="role-card p-4">
+                    <div class="icon-box"><i class="bi bi-bar-chart-line"></i></div>
+                    <h5 class="mt-3">Market Insights</h5>
+                    <p class="text-muted small">AI-based price trends and recommendations.</p>
+                    <a href="#" class="btn btn-success w-100">View Insights</a>
+                </div>
+            </div>
+
+            <!-- Profile -->
+            <div class="col-md-4">
+                <div class="role-card p-4">
+                    <div class="icon-box"><i class="bi bi-person-lines-fill"></i></div>
+                    <h5 class="mt-3">My Profile</h5>
+                    <p class="text-muted small">Manage your personal and farm details.</p>
+                    <a href="#" class="btn btn-success w-100">Edit Profile</a>
+                </div>
+            </div>
+
+            <!-- Logout -->
+            <div class="col-md-4">
+                <div class="role-card p-4">
+                    <div class="icon-box"><i class="bi bi-box-arrow-right"></i></div>
+                    <h5 class="mt-3">Logout</h5>
+                    <p class="text-muted small">Sign out securely from your dashboard.</p>
+                    <a href="../login.html" class="btn btn-success w-100">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

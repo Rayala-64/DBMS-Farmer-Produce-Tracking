@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Produce Tracking System</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Common Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
+    <img src="{{ url_for('static', filename='assets/RVCE.png') }}"
+         alt="College Logo"
+         height="40"
+         class="me-2">
+    Produce Tracking System
+</a>
+
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="card shadow p-4 mx-auto" style="max-width: 450px; border-radius: 12px;">
+        <h3 class="text-center text-success mb-4">
+            <i class="bi bi-person-plus"></i> Create an Account
+        </h3>
+
+        <form action="/register" method="POST">
+
+    <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input type="text" name="name" class="form-control"
+               placeholder="Enter your full name" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email ID</label>
+        <input type="email" name="email" class="form-control"
+               placeholder="example@gmail.com" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Choose Role</label>
+        <select name="role" class="form-select" required>
+            <option value="">Select role</option>
+            <option value="Farmer">Farmer</option>
+            <option value="Warehouse Manager">Warehouse Manager</option>
+            <option value="Logistics Operator">Logistics Operator</option>
+            <option value="Retailer">Retailer</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Create Password</label>
+        <input type="password" name="password" class="form-control"
+               placeholder="Enter password" required>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">
+        Register
+    </button>
+
+    <p class="text-center mt-3">
+        Already have an account?
+        <a href="/login" class="text-success fw-bold">Login</a>
+    </p>
+
+</form>
+
+    </div>
+</div>
+
+</body>
+</html>

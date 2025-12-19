@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Farmer-to-Market Produce Tracking System</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f8fff7;
+        }
+        .role-card {
+            transition: 0.3s ease;
+            border-radius: 12px;
+        }
+        .role-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .icon-box {
+            font-size: 50px;
+            color: #198754;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
+    <img src="{{ url_for('static', filename='assets/RVCE.png') }}"
+     alt="College Logo"
+     height="40"
+     class="me-2">
+    Produce Tracking System
+</a>
+
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="help.html">Help</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container mt-5 text-center">
+    <h1 class="display-5 fw-bold text-success">Farmer-to-Market Produce Tracking System</h1>
+    <p class="lead mb-4">Track agricultural produce across the supply chain with transparency and efficiency.</p>
+
+    <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/icons/boxes.svg"
+         width="90" class="my-3">
+
+    <!-- ROLE CARDS -->
+    <div class="row mt-4 g-4">
+
+        <!-- Farmer -->
+        <div class="col-md-3">
+            <div class="p-4 bg-white role-card border">
+                <div class="icon-box mb-3"><i class="bi bi-person-lines-fill"></i></div>
+                <h5>Farmer</h5>
+                <p class="text-muted small">Add produce, update details.</p>
+                <a href="/login" class="btn btn-success w-100 mt-2">Enter</a>
+            </div>
+        </div>
+
+        <!-- Warehouse -->
+        <div class="col-md-3">
+            <div class="p-4 bg-white role-card border">
+                <div class="icon-box mb-3"><i class="bi bi-house-gear-fill"></i></div>
+                <h5>Warehouse</h5>
+                <p class="text-muted small">Receive, store & inventory.</p>
+                <a href="/login" class="btn btn-success w-100 mt-2">Enter</a>
+            </div>
+        </div>
+
+        <!-- Logistics -->
+        <div class="col-md-3">
+            <div class="p-4 bg-white role-card border">
+                <div class="icon-box mb-3"><i class="bi bi-truck"></i></div>
+                <h5>Logistics</h5>
+                <p class="text-muted small">Monitor transport movement.</p>
+                <a href="/login" class="btn btn-success w-100 mt-2">Enter</a>
+            </div>
+        </div>
+
+        <!-- Retailer -->
+        <div class="col-md-3">
+            <div class="p-4 bg-white role-card border">
+                <div class="icon-box mb-3"><i class="bi bi-shop"></i></div>
+                <h5>Retailer</h5>
+                <p class="text-muted small">Sales & market tracking.</p>
+                <a href="/login" class="btn btn-success w-100 mt-2">Enter</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
