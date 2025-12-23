@@ -30,6 +30,19 @@
 </nav>
 
 <div class="container mt-5">
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+
     <div class="card shadow p-4 mx-auto" style="max-width: 450px; border-radius: 12px;">
         <h3 class="text-center text-success mb-4">
             <i class="bi bi-person-plus"></i> Create an Account
@@ -79,6 +92,14 @@
 
     </div>
 </div>
+
+<!-- FOOTER -->
+<footer class="container-fluid mt-5 mb-3 text-muted">
+    <div class="d-flex justify-content-between"style="font-size: 18px; font-weight: bold;">
+        <div class="fw-semibold">Department of AIML</div>
+        <div>By Yuvaraj Vaishnav and Vishwanatha</div>
+    </div>
+</footer>
 
 </body>
 </html>

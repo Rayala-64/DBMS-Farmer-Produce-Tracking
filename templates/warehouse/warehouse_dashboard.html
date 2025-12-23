@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
-    <img src="../assets/RVCE.png"
+    <img src="../static/assets/RVCE.png"
          alt="College Logo"
          height="40"
          class="me-2">
@@ -26,8 +26,19 @@
 
         </div>
     </nav>
-
-    <div class="container mt-4">
+<div class="container mt-5">
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+ 
         <h2 class="text-success mb-4"><i class="bi bi-person-circle"></i> Warehouse Dashboard</h2>
 
         <div class="row g-4">
@@ -84,5 +95,14 @@
             </div>
         </div>
     </div>
+
+<!-- FOOTER -->
+<footer class="container-fluid mt-5 mb-3 text-muted">
+    <div class="d-flex justify-content-between"style="font-size: 18px; font-weight: bold;">
+        <div class="fw-semibold">Department of AIML</div>
+        <div>By Yuvaraj Vaishnav and Vishwanatha</div>
+    </div>
+</footer>
+
 </body>
 </html>
