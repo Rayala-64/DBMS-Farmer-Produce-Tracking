@@ -3,6 +3,7 @@ import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import re
+from flask import url_for
 
 # ---------------- APP CONFIG ----------------
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -68,6 +69,18 @@ def register():
             (name, email, hashed_password, role)
         )
         conn.commit()
+
+        user_id = cur.lastrowid  # 🔥 important
+
+        if role == "Farmer":
+            cur.execute(
+                """
+                INSERT INTO farmers (user_id, farmer_name, contact_no)
+                VALUES (%s, %s, %s)
+                """,
+                (user_id, name, "NOT_PROVIDED")
+            )
+        conn.commit()
         flash("Registration successful. Please login.", "success")
         return redirect('/login')
     
@@ -80,7 +93,6 @@ def register():
 
     return redirect("/login")
 
-# ---------------- LOGIN ----------------
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -91,7 +103,7 @@ def login():
 
     if not email or not password:
         flash("Email and password are required", "danger")
-        return redirect('/login')
+        return redirect(url_for("login"))
 
     conn = get_db_connection()
     cur = conn.cursor(dictionary=True)
@@ -106,39 +118,116 @@ def login():
     )
 
     user = cur.fetchone()
+
+    if not user or not check_password_hash(user["password"], password):
+        cur.close()
+        conn.close()
+        flash("Invalid email or password", "danger")
+        return redirect(url_for("login"))
+
+    # ---------------- SESSION SETUP ----------------
+    session.clear()
+    user_id = user["user_id"]
+    role = user["role"].lower()   # normalize once
+
+    session["user_id"] = user_id
+    session["role"] = role
+
+    # ---------------- FARMER PROFILE FAILSAFE ----------------
+    if role == "farmer":
+        cur.execute(
+            "SELECT farmer_id FROM farmers WHERE user_id = %s",
+            (user_id,)
+        )
+        farmer = cur.fetchone()
+
+        if not farmer:
+            cur.execute(
+                """
+                INSERT INTO farmers (user_id, farmer_name, contact_no)
+                VALUES (%s, %s, %s)
+                """,
+                (user_id, "UNKNOWN", "NOT_PROVIDED")
+            )
+            conn.commit()
+
     cur.close()
     conn.close()
 
-    if user and check_password_hash(user["password"], password):
-        session["user_id"] = user["user_id"]
-        session["role"] = user["role"]
-        print("ROLE FROM DB:", user["role"])
+    flash("Login successful", "success")
 
-        flash("Login successful", "success")
+    role_route_map = {
+        "farmer": "/farmer/dashboard",
+        "retailer": "/retailer/dashboard",
+        "warehouse manager": "/warehouse/dashboard",
+        "logistics operator": "/logistics/dashboard"
+    }
 
-        role_route_map = {
-            "Farmer": "/farmer/dashboard",
-            "Retailer": "/retailer/dashboard",
-            "Warehouse Manager": "/warehouse/dashboard",
-            "Logistics Operator": "/logistics/dashboard"
-        }
+    return redirect(role_route_map[role])
 
-        return redirect(role_route_map[user["role"]])
-
-    flash("Invalid email or password", "danger")
-    print("FORM DATA:", request.form)
-    return redirect('/login')
   
-
-
 
 # ---------------- DASHBOARDS ----------------
 @app.route("/farmer/dashboard")
 def farmer_dashboard():
-    if 'user_id' not in session or session.get('role') != 'Farmer':
+    if session.get('role') != 'farmer':
         flash("Unauthorized access", "danger")
-        return redirect('/login')
+        return redirect(url_for("login"))
+    
     return render_template('farmer/farmer_dashboard.html')
+
+@app.route("/farmer/add-produce", methods=["GET", "POST"])
+def add_produce():
+    if session.get("role") != "farmer":
+        flash("Unauthorized access", "danger")
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        user_id = session["user_id"]
+
+        crop = request.form["crop_name"]
+        quantity = request.form["quantity"]
+        quality = request.form["quality"]
+        harvest_date = request.form["harvest_date"]
+
+        db = get_db_connection()
+        cur = db.cursor(dictionary=True)
+
+        # get farmer_id using user_id
+        cur.execute(
+            "SELECT farmer_id FROM farmers WHERE user_id = %s",
+            (user_id,)
+        )
+        farmer = cur.fetchone()
+
+        if not farmer:
+            flash("Farmer profile not found", "danger")
+            return redirect(url_for("farmer_dashboard"))
+
+        farmer_id = farmer["farmer_id"]
+
+        cur.execute(
+            """
+            INSERT INTO produce (farmer_id, crop_name, quantity, quality, harvest_date)
+            VALUES (%s, %s, %s, %s, %s)
+            """,
+            (farmer_id, crop, quantity, quality, harvest_date)
+        )
+
+        db.commit()
+        cur.close()
+        db.close()
+
+        flash("Produce added successfully", "success")
+        return redirect(url_for("farmer_dashboard"))
+
+    return render_template("farmer/add_produce.html")
+
+
+@app.route("/farmer/view-produce")
+def view_produce():
+    return render_template("farmer/view_produce.html")
+
 
 @app.route("/retailer/dashboard")
 def retailer_dashboard():
@@ -166,7 +255,7 @@ def logistics_dashboard():
 def logout():
     session.clear()
     flash("Logged out successfully", "info")
-    return redirect("/login")
+    return redirect(url_for("login"))
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":

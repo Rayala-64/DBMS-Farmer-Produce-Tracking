@@ -48,7 +48,7 @@
             <i class="bi bi-box-arrow-in-right"></i> Login
         </h3>
 
-        <form action="/login" method="POST">
+        <form action="{{ url_for('login') }}" method="POST">
             <div class="mb-3">
                 <label class="form-label">Email ID</label>
                 <input type="email" class="form-control" name="email" placeholder="example@gmail.com" required>
